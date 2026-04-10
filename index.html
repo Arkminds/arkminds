@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -22,6 +22,10 @@
   html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
+  /* LANG TOGGLE */
+  body.sv [data-lang="en"] { display: none !important; }
+  body.en [data-lang="sv"] { display: none !important; }
+
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -32,6 +36,15 @@
   }
   nav.scrolled { border-color: var(--rule); }
   .nav-logo { font-family: 'DM Mono', monospace; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--ink); font-weight: 500; }
+  .lang-switch { display: flex; align-items: center; gap: 0.3rem; }
+  .lang-sep { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--rule); }
+  .lang-btn {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em;
+    background: none; border: none; cursor: pointer; color: var(--muted);
+    padding: 0.3rem 0.5rem; transition: color 0.2s; border-bottom: 1px solid transparent;
+  }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
   .nav-cta { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; background: var(--ink); color: var(--bg); padding: 0.65rem 1.5rem; text-decoration: none; transition: background 0.2s; }
   .nav-cta:hover { background: var(--accent); }
 
@@ -67,12 +80,6 @@
     max-width: 540px; font-size: 1rem; color: var(--ink2); line-height: 1.8;
     animation: fadeUp 0.7s 0.2s ease both;
   }
-  .hero-bio + .hero-bio { margin-top: 1.2rem; animation-delay: 0.3s; }
-  .lang-tag {
-    font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--muted); margin-right: 0.5rem;
-    border: 1px solid var(--rule); padding: 0.15rem 0.4rem; vertical-align: middle;
-  }
 
   /* ABOUT + STACK */
   #about {
@@ -100,8 +107,7 @@
   .project-role { font-size: 0.78rem; color: var(--muted); }
   .project-date { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; color: var(--muted); margin-top: 0.2rem; }
 
-  .stack-col { }
-  .stack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0; }
+  .stack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
   .stack-tag {
     font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em;
     border: 1px solid var(--rule); padding: 0.55rem 0.9rem; color: var(--ink2);
@@ -173,25 +179,40 @@
   }
 </style>
 </head>
-<body>
+<body class="sv">
 
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-logo">ARKMINDS AB</div>
-  <a href="#contact" class="nav-cta">Get in touch</a>
+  <div class="lang-switch">
+    <button class="lang-btn" data-lang="sv">SV</button>
+    <span class="lang-sep">·</span>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+  <a href="#contact" class="nav-cta">
+    <span data-lang="sv">Kontakta mig</span>
+    <span data-lang="en">Get in touch</span>
+  </a>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-wm">ARK</div>
   <div class="hero-body">
-    <p class="hero-tag">Gothenburg, Sweden · Available for consulting</p>
-    <h1>Kristian Eide —<br/><em>Freelance</em><br/>Full-Stack Engineer.</h1>
-    <p class="hero-bio" lang="sv">
-      <span class="lang-tag">sv</span>Jag brinner för att leverera resultat med kvalitet — inom mjukvaruutveckling innebär det snabbare iterationer och färre problem över tid. Just nu utforskar jag agentiska arbetsflöden som gör det möjligt för vem som helst i organisationen att bidra till mjukvaruutveckling. Mina roller är backendutvecklare (konsult) på Norion Bank och CTO på Plate Impact.
+    <p class="hero-tag">
+      <span data-lang="sv">Göteborg, Sverige · Tillgänglig för konsultuppdrag</span>
+      <span data-lang="en">Gothenburg, Sweden · Available for consulting</span>
     </p>
-    <p class="hero-bio" lang="en">
-      <span class="lang-tag">en</span>I love to deliver results with quality, in software engineering that means faster
+    <h1>Kristian Eide —<br/><em>Freelance</em><br/>Full-Stack Engineer.</h1>
+    <p class="hero-bio" data-lang="sv">
+      Jag brinner för att leverera resultat med kvalitet — inom mjukvaruutveckling innebär
+      det snabbare iterationer och färre problem över tid. Just nu utforskar jag agentiska
+      arbetsflöden som gör det möjligt för vem som helst i organisationen att bidra till
+      mjukvaruutveckling. Mina roller är backendutvecklare (konsult) på Norion Bank och
+      CTO på Plate Impact.
+    </p>
+    <p class="hero-bio" data-lang="en">
+      I love to deliver results with quality, in software engineering that means faster
       iterations and fewer issues over time. Currently exploring agentic workflows that
       let anyone in an organisation contribute to software development. My roles are
       backend developer consultant at Norion Bank and CTO at Plate Impact.
@@ -203,18 +224,38 @@
 <section id="about">
   <!-- Left: background & projects -->
   <div class="about-col reveal">
-    <div class="sec-label">Background</div>
-    <p>
+    <div class="sec-label">
+      <span data-lang="sv">Bakgrund</span>
+      <span data-lang="en">Background</span>
+    </div>
+
+    <p data-lang="sv">
+      Jag studerade på <strong>Chalmers tekniska högskola</strong> i Göteborg, med examina
+      i Automation &amp; Mekatronik och Entrepreneurship &amp; Business Design.
+    </p>
+    <p data-lang="en">
       I studied at <strong>Chalmers tekniska högskola</strong> in Gothenburg, earning
       degrees in both Automation &amp; Mechatronics and Entrepreneurship &amp; Business Design.
     </p>
-    <p>
+
+    <p data-lang="sv">
+      På <strong>Norion Bank</strong> (nuvarande uppdrag) har jag ingått i ett
+      greenfield-projekt inom fintech — där kvalitet, säkerhet och regelefterlevnad sätter
+      en hög standard. Mitt huvudfokus idag är agentiska arbetsflöden som ger vem som
+      helst i organisationen möjlighet att bidra till mjukvaruutveckling.
+    </p>
+    <p data-lang="en">
       At <strong>Norion Bank</strong> (current engagement) I've been part of a green-field
       project in the fintech space — where quality, security and compliance set a high bar.
       My main focus today is agentic workflows that empower anyone in an organisation to
       contribute to software development.
     </p>
-    <p>
+
+    <p data-lang="sv">
+      Jag är även CTO på <strong>Plate Impact</strong>, ett tech- och hållbarhetsbolag,
+      där jag leder fullstackutveckling med .NET, Angular och Azure.
+    </p>
+    <p data-lang="en">
       I'm also CTO at <strong>Plate Impact</strong>, a tech and sustainability startup,
       where I lead full-stack development across .NET, Angular and Azure.
     </p>
@@ -225,7 +266,7 @@
         <div>
           <div class="project-name">Plate Impact</div>
           <div class="project-role">CTO &amp; Co-Founder · SaaS · Sustainability tech</div>
-          <div class="project-date">Sep 2022 – present</div>
+          <div class="project-date">Sep 2022 – <span data-lang="sv">nu</span><span data-lang="en">present</span></div>
         </div>
       </li>
       <li>
@@ -233,7 +274,7 @@
         <div>
           <div class="project-name">Norion Bank</div>
           <div class="project-role">Back-End Consultant · Fintech</div>
-          <div class="project-date">Oct 2023 – present</div>
+          <div class="project-date">Oct 2023 – <span data-lang="sv">nu</span><span data-lang="en">present</span></div>
         </div>
       </li>
       <li>
@@ -277,14 +318,26 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="sec-label">Let's talk</div>
-  <h2>Have a project<br/><em>in mind?</em></h2>
+  <div class="sec-label">
+    <span data-lang="sv">Kontakt</span>
+    <span data-lang="en">Let's talk</span>
+  </div>
+  <h2>
+    <span data-lang="sv">Har du ett<br/><em>projekt?</em></span>
+    <span data-lang="en">Have a project<br/><em>in mind?</em></span>
+  </h2>
   <div class="contact-links">
     <a href="mailto:kristian@arkminds.se" class="contact-link">kristian@arkminds.se</a>
-    <div class="contact-loc">Mölndal, Gothenburg, Sweden</div>
+    <div class="contact-loc">
+      <span data-lang="sv">Mölndal, Göteborg, Sverige</span>
+      <span data-lang="en">Mölndal, Gothenburg, Sweden</span>
+    </div>
   </div>
   <div class="contact-btns">
-    <a href="mailto:kristian@arkminds.se" class="btn-inv">Send a message</a>
+    <a href="mailto:kristian@arkminds.se" class="btn-inv">
+      <span data-lang="sv">Skicka ett meddelande</span>
+      <span data-lang="en">Send a message</span>
+    </a>
     <a href="https://www.linkedin.com/in/kristian-eide-9ab48792/" target="_blank" rel="noopener" class="btn-ghost">LinkedIn ↗</a>
   </div>
 </section>
@@ -295,8 +348,11 @@
 </footer>
 
 <script>
+  // Scroll nav border
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+
+  // Reveal on scroll
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
@@ -306,6 +362,23 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Language switch
+  function setLang(lang) {
+    document.body.className = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    localStorage.setItem('lang', lang);
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+
+  // Apply saved or default language (sv)
+  setLang(localStorage.getItem('lang') || 'sv');
 </script>
 </body>
 </html>
